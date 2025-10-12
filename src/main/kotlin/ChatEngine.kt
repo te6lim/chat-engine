@@ -150,10 +150,10 @@ private constructor(private val serializer: KSerializer<M>) : IChatEngine<M> {
 
             override fun onOpen(webSocket: WebSocket, response: Response) {
                 socketState = SocketState.CONNECTED
+                sendPendingMessagesFirst(listOf())
                 coroutineScope.runOnMainThread {
                     chatEngineEventListener?.onConnect()
                 }
-                sendPendingMessagesFirst(listOf())
             }
         }
     }
