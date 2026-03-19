@@ -6,7 +6,7 @@ import okhttp3.Response
 
 interface ChatEngineEventListener<M: ComparableMessage> {
     fun onClose(code: Int, reason: String)
-    fun onError(response: ChatServiceErrorResponse)
+    fun onError(response: ChatServiceErrorResponse<M>)
     fun onSent(message: M)
     fun onReceive(message: M)
     fun onDisconnect(t: Throwable, response: Response?)

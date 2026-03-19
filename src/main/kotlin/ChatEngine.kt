@@ -87,6 +87,20 @@ private constructor(private val serializer: KSerializer<M>) : IChatEngine<M> {
         if (message.sender != me) {
             throw Exception("sender has changed: not allowed")
         }
+        if (!socketIsConnected) {
+            coroutineScope.runOnMainThread {
+                chatEngineEventListener?.onError(
+                    ChatServiceErrorResponse(
+                        statusCode = -1,
+                        exception = null,
+                        reason = ChatServiceError.SEND_FAILED.name,
+                        message = "socket is not connected",
+                        failedMessage = message
+                    )
+                )
+            }
+            return
+        }
         sendPendingMessagesFirst(listOf(message))
     }
 
