@@ -12,5 +12,5 @@ interface ChatEndpointCallerWithData<D, R> {
 
 interface ResponseCallback<T> {
     fun onResponse(response: T)
-    fun onFailure(response: ChatServiceErrorResponse)
+    fun onFailure(response: ChatServiceErrorResponse<*>)
 }
